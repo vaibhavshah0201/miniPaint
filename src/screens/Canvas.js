@@ -105,23 +105,29 @@ const CanvasScreen = () => {
 const styles = StyleSheet.create({
   safeAreaCotainer: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "column",
+    justifyContent: 'space-around'
   },
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  // container: {
+  //   // alignItems: "center",
+  //   // justifyContent: "center",
+  // },
   canvasArea: {
     alignSelf: "center",
-    // backgroundColor: 'grey'
+    backgroundColor: '#fff',
+    width: '90%',
+    height: '80%',
+    borderColor: 'black',
+    borderWidth: 1
+    // backgroundColor: 'grey',
+    // justifyContent: 'center',
   },
   componentArea: {
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
     height: 90,
-    backgroundColor: "grey",
+    backgroundColor: "#D3D3D3",
     width: "100%",
     alignSelf: "flex-end",
   },
@@ -133,13 +139,17 @@ const styles = StyleSheet.create({
   squareBox: {
     height: "100%",
     width: "100%",
-    backgroundColor: "blue",
+    // backgroundColor: "blue",
+    borderColor: 'black',
+    borderWidth: 2,
     borderRadius: 1,
   },
   circleBox: {
     height: "100%",
     width: "100%",
-    backgroundColor: "blue",
+    // backgroundColor: "blue",
+    borderColor: 'black',
+    borderWidth: 2,
     borderRadius: 100 / 2,
   },
   triangleBox: {
@@ -152,7 +162,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 60,
     borderLeftColor: "transparent",
     borderRightColor: "transparent",
-    borderBottomColor: "blue",
+    // borderBottomColor: "blue",
+    borderColor: 'black',
+    borderWidth: 2,
   },
   squareButton: {
     width: 40,
