@@ -1,48 +1,102 @@
-import React, {useRef} from 'react';
+import React, { useState } from "react";
 import {
-  Animated,
-  Button,
   SafeAreaView,
-  Text,
   View,
-  PanResponder,
   StyleSheet,
-} from 'react-native';
-import {DragResizeBlock} from 'react-native-drag-resize';
-// import { IconButton, MD3Colors } from 'react-native-paper';
+  TouchableOpacity,
+  TextInput,
+  Text,
+} from "react-native";
+import { DragResizeBlock } from "react-native-drag-resize";
+import DoubleClick from "react-native-double-tap";
 
 const CanvasScreen = () => {
-  // const pan = useRef(new Animated.ValueXY()).current;
+  const [displaySquare, setDisplaySquare] = useState(false);
+  const [displayCircle, setDisplayCircle] = useState(false);
+  const [displayTriangle, setDisplayTriangle] = useState(false);
+  const [displayText, setDisplayText] = useState(false);
 
-  // const panResponder = useRef(
-  //   PanResponder.create({
-  //     onMoveShouldSetPanResponder: () => true,
-  //     onPanResponderMove: Animated.event([null, {dx: pan.x, dy: pan.y}]),
-  //     onPanResponderRelease: () => {
-  //       pan.extractOffset();
-  //     },
-  //   }),
-  // ).current;
+  const renderCircle = () => {
+    setDisplayCircle(true);
+  };
+
+  const renderTriangle = () => {
+    setDisplayTriangle(true);
+  };
+
+  const renderSquare = () => {
+    setDisplaySquare(true);
+  };
+
+  const renderText = () => {
+    setDisplayText(true);
+  };
+
+  const removeItem = (itemName) => {
+    if (itemName == "square") {
+      setDisplaySquare(false);
+    } else if (itemName == "circle") {
+      setDisplayCircle(false);
+    } else if (itemName == "triangle") {
+      setDisplayTriangle(false);
+    } else if (itemName == "text") {
+      setDisplayText(false);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.safeAreaCotainer}>
       <View style={styles.canvasArea}>
         <View style={styles.container}>
-          <DragResizeBlock x={0} y={0}>
-            <View style={styles.box} />
-          </DragResizeBlock>
+          {displaySquare && (
+            <DragResizeBlock x={0} y={0}>
+              <DoubleClick doubleTap={() => removeItem("square")}>
+                <View style={styles.squareBox} />
+              </DoubleClick>
+            </DragResizeBlock>
+          )}
+          {displayCircle && (
+            <DragResizeBlock x={0} y={0}>
+              <DoubleClick doubleTap={() => removeItem("circle")}>
+                <View style={styles.circleBox} />
+              </DoubleClick>
+            </DragResizeBlock>
+          )}
+          {displayTriangle && (
+            <DragResizeBlock x={0} y={0}>
+              <DoubleClick doubleTap={() => removeItem("triangle")}>
+                <View style={styles.triangleBox} />
+              </DoubleClick>
+            </DragResizeBlock>
+          )}
+          {displayText && (
+            <DoubleClick doubleTap={() => removeItem("text")}>
+              <DragResizeBlock x={0} y={0}>
+                <TextInput
+                  placeholder="Enter your text here"
+                  style={{
+                    color: "black",
+                    fontWeight: 'bold',
+                    height: "100%",
+                    width: "100%",
+                    fontSize: 20,
+                  }}
+                ></TextInput>
+              </DragResizeBlock>
+            </DoubleClick>
+          )}
         </View>
       </View>
       <View style={styles.componentArea}>
-        <View style={styles.squreButton}>
-          <Button title="Square"></Button>
-          {/* <IconButton
-            icon="camera"
-            iconColor={MD3Colors.error50}
-            size={20}
-            onPress={() => console.log('Pressed')}
-          /> */}
-        </View>
+        <TouchableOpacity style={styles.squareButton} onPress={renderSquare} />
+        <TouchableOpacity style={styles.circleButton} onPress={renderCircle} />
+        <TouchableOpacity
+          style={styles.triangleButton}
+          onPress={renderTriangle}
+        />
+        <TouchableOpacity style={styles.textButton} onPress={renderText}>
+          <Text>Text</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -51,37 +105,85 @@ const CanvasScreen = () => {
 const styles = StyleSheet.create({
   safeAreaCotainer: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   canvasArea: {
-    alignSelf: 'center',
+    alignSelf: "center",
     // backgroundColor: 'grey'
   },
   componentArea: {
-    backgroundColor: 'grey',
-    width: '100%',
-    alignSelf: 'flex-end',
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    height: 90,
+    backgroundColor: "grey",
+    width: "100%",
+    alignSelf: "flex-end",
   },
   titleText: {
     fontSize: 14,
     lineHeight: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
-  box: {
-    height: '100%',
-    width: '100%',
-    backgroundColor: 'blue',
-    borderRadius: 5,
+  squareBox: {
+    height: "100%",
+    width: "100%",
+    backgroundColor: "blue",
+    borderRadius: 1,
   },
-  squreButton: {
+  circleBox: {
+    height: "100%",
+    width: "100%",
+    backgroundColor: "blue",
+    borderRadius: 100 / 2,
+  },
+  triangleBox: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "transparent",
+    borderStyle: "solid",
+    borderLeftWidth: 30,
+    borderRightWidth: 30,
+    borderBottomWidth: 60,
+    borderLeftColor: "transparent",
+    borderRightColor: "transparent",
+    borderBottomColor: "blue",
+  },
+  squareButton: {
+    width: 40,
     height: 40,
-    width: 100,
-    alignSelf: 'flex-end',
+    backgroundColor: "red",
+    alignSelf: "center",
+  },
+  circleButton: {
+    width: 50,
+    height: 50,
+    borderRadius: 100 / 2,
+    backgroundColor: "red",
+  },
+  triangleButton: {
+    width: 0,
+    height: 0,
+    backgroundColor: "transparent",
+    borderStyle: "solid",
+    borderLeftWidth: 30,
+    borderRightWidth: 30,
+    borderBottomWidth: 60,
+    borderLeftColor: "transparent",
+    borderRightColor: "transparent",
+    borderBottomColor: "red",
+  },
+  textButton: {
+    width: 40,
+    height: 40,
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

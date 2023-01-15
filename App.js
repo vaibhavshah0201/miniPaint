@@ -5,6 +5,8 @@ import { View, Text, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CanvasScreen from './src/screens/Canvas';
+// import Sketch from './src/screens/Sketch';
+// import {DragTextEditor} from 'react-native-drag-text-editor';
 
 function HomeScreen({ navigation }) {
   return (
@@ -14,6 +16,10 @@ function HomeScreen({ navigation }) {
         title="Open Canvas"
         onPress={() => navigation.navigate('Canvas')}
       />
+      {/* <Button
+        title="Open Sketchpad"
+        onPress={() => navigation.navigate('Sketch')}
+      /> */}
     </View>
   );
 }
@@ -36,6 +42,7 @@ function App() {
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Canvas" component={CanvasScreen} />
+        {/* <Stack.Screen name="Sketch" component={Sketch} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
